@@ -1,4 +1,4 @@
-package com.contacts.Security;
+package com.contacts.Configuration;
 
 import com.contacts.dao.ConttactDao;
 import org.springframework.beans.factory.annotation.Autowired;

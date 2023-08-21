@@ -70,6 +70,11 @@ public class ContactController {
         return new ResponseEntity<>(contactServices.restore(id),HttpStatus.OK);
     }
 
+    @PostMapping("sendeml")
+    public ResponseEntity<String> sendEmail(@RequestBody String to){
+        return new ResponseEntity<>(contactServices.sendEmail(to),HttpStatus.OK);
+    }
+
     @GetMapping("getip")
     public ResponseEntity<String> storeIp(){
         String ip = request.getHeader("X-Forwarded-For");

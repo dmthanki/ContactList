@@ -23,4 +23,5 @@ public interface ContactServices {
 
     public ContactDto restore(Integer id) throws ContactNotFoundException;
 
+    public String sendEmail(String to);
 }

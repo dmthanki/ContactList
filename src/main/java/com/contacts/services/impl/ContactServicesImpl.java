@@ -6,9 +6,10 @@ import com.contacts.entity.Contact;
 import com.contacts.exception.ContactNotFoundException;
 import com.contacts.exception.CustomUniqueConstrainException;
 import com.contacts.services.ContactServices;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,9 +21,15 @@ public class ContactServicesImpl implements ContactServices {
 
     private final ConttactDao conttactDao;
 
+    private final JavaMailSender javaMailSender;
+
+    private final SimpleMailMessage simpleMailMessage;
+
     @Autowired
-    public ContactServicesImpl(ConttactDao conttactDao,HttpServletRequest request){
+    public ContactServicesImpl(ConttactDao conttactDao, JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage){
         this.conttactDao = conttactDao;
+        this.javaMailSender = javaMailSender;
+        this.simpleMailMessage = simpleMailMessage;
     }
 
     @Override
@@ -170,5 +177,28 @@ public class ContactServicesImpl implements ContactServices {
             dtos.add(contactToDto(c1));
         }
         return dtos;
+    }
+
+    public String sendEmail(String to){
+        String from = "dharmikthanki70@gmail.com";
+        String msg = "Email is just for checking that it works in Spring boot or not";
+        String sub = "Mail through Spring Boot";
+        boolean f = false;
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom(from);
+        mailMessage.setTo(to);
+        mailMessage.setSubject(sub);
+        mailMessage.setText(msg);
+
+        try{
+            javaMailSender.send(mailMessage);
+            f = true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return (f == true) ? "Email Sent Successfully" : "Can't Send Email";
     }
 }
