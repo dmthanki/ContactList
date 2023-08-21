@@ -35,7 +35,7 @@ public class ContactDto {
     @NotBlank
     private String phone;
 
-//    @Getter
-//    @Setter
-//    private Boolean deleted = Boolean.FALSE;
+   // @Getter
+   // @Setter
+   // private Boolean deleted = Boolean.FALSE;
 }
