@@ -23,7 +23,6 @@ public class ContactController {
     private final ContactServices contactServices;
     private final HttpServletRequest request;
 
-
     @Autowired
     public ContactController(ContactServices contactServices,HttpServletRequest request){
         this.contactServices = contactServices;
